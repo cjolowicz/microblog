@@ -7,6 +7,4 @@ Clone the original here:
 
  https://github.com/miguelgrinberg/microblog
  
-This is not a clone, but a step-by-step remake as I'm working through this excellent tutorial.
-
-Unlike the original, this repository contains commits for every individual step in each chapter (except for the first three), rather than one large commit per chapter.
+This repository is not a clone, but a step-by-step remake as I'm working through this excellent tutorial. There are commits for all the individual steps in each chapter (except for the first three), and tags pointing to the final commit in each chapter. The original repository, by contrast, contains a large commit for every chapter.

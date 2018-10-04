@@ -3,3 +3,4 @@ venv
 app.db
 logs
 messages.pot
+messages.mo

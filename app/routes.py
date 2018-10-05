@@ -6,8 +6,9 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from guess_language import guess_language
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
+from app.auth.forms import LoginForm, RegistrationForm, \
     ResetPasswordRequestForm, ResetPasswordForm
+from app.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.auth.email import send_password_reset_email
 from app.translate import translate

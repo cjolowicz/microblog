@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cjolowicz/microblog.svg?branch=master)](https://travis-ci.org/cjolowicz/microblog)
+
 # microblog
 This is the example project from Miguel Grinberg's Flask Mega Tutorial:
 

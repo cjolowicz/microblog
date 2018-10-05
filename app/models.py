@@ -126,7 +126,7 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class Post(db.Model):
+class Post(SearchableMixin, db.Model):
     __searchable__ = ['body']
 
     id = db.Column(db.Integer, primary_key=True)

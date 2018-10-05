@@ -10,12 +10,14 @@ from app.models import User, Post
 from app.translate import translate
 from app.main import bp
 
+
 @bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
     g.locale = str(get_locale())
+
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
@@ -43,6 +45,7 @@ def index():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
+
 @bp.route('/explore')
 @login_required
 def explore():
@@ -57,6 +60,7 @@ def explore():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
+
 @bp.route('/user/<username>')
 @login_required
 def user(username):
@@ -70,6 +74,7 @@ def user(username):
                        page=posts.prev_num) if posts.has_prev else None
     return render_template('user.html', user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
+
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -87,6 +92,7 @@ def edit_profile():
     return render_template('edit_profile.html', title=_('Edit Profile'),
                            form=form)
 
+
 @bp.route('/follow/<username>')
 @login_required
 def follow(username):
@@ -101,6 +107,7 @@ def follow(username):
     db.session.commit()
     flash(_('You are following %(username)s!', username=username))
     return redirect(url_for('main.user', username=username))
+
 
 @bp.route('/unfollow/<username>')
 @login_required
@@ -117,9 +124,11 @@ def unfollow(username):
     flash(_('You are not following %(username)s.', username=username))
     return redirect(url_for('main.user', username=username))
 
+
 @bp.route('/translate', methods=['POST'])
 @login_required
 def translate_text():
     return jsonify({'text': translate(request.form['text'],
                                       request.form['source_language'],
                                       request.form['dest_language'])})
+

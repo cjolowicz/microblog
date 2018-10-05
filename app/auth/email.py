@@ -2,6 +2,7 @@ from flask import render_template, current_app
 from flask_babel import _
 from app.email import send_email
 
+
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
     send_email(_('[Microblog] Reset Your Password'),

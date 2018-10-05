@@ -8,7 +8,6 @@ from app import app, db
 from app.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.translate import translate
-from app.auth import routes
 
 @app.before_request
 def before_request():

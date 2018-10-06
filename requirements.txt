@@ -16,11 +16,13 @@ Flask-Moment==0.6.0
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
 guess-language-spirit==0.5.3
+gunicorn==19.9.0
 idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.0
+psycopg2==2.7.5
 PyJWT==1.6.4
 python-dateutil==2.7.3
 python-dotenv==0.9.1

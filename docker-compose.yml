@@ -1,0 +1,32 @@
+version: '3'
+services:
+  microblog:
+    build: .
+    ports:
+    - "8000:5000"
+    links:
+    - mysql
+    - elasticsearch
+    env_file: .env
+    environment:
+    - SECRET_KEY
+    - DATABASE_URL=mysql+pymysql://microblog:${MYSQL_PASSWORD}@mysql/microblog
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+  mysql:
+    image: "mysql/mysql-server:5.7"
+    volumes:
+    - microblog-mysql-volume:/var/lib/mysql
+    environment:
+    - MYSQL_DATABASE=microblog
+    - MYSQL_USER=microblog
+    - MYSQL_PASSWORD
+    - MYSQL_RANDOM_ROOT_PASSWORD=yes
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1"
+    ports:
+    - "9200:9200"
+    - "9300:9300"
+    environment:
+    - discovery.type=single-node
+volumes:
+  microblog-mysql-volume:

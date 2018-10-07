@@ -7,6 +7,7 @@ MYSQL_RANDOM_ROOT_PASSWORD=yes
 
 SECRET_KEY=33b7497205884cd2801a03ac16109409
 DATABASE_URL=mysql+pymysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
+ELASTICSEARCH_URL=http://elasticsearch:9200
 
 # Start mysql container.
 docker run --name mysql \
@@ -17,6 +18,15 @@ docker run --name mysql \
        --env MYSQL_PASSWORD=$MYSQL_PASSWORD \
        mysql/mysql-server:5.7
 
+# Start elasticsearch container.
+docker run --name elasticsearch \
+       --detach \
+       --publish 9200:9200 \
+       --publish 9300:9300 \
+       --rm \
+       --env discovery.type=single-node \
+       docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
+
 # Start microblog container.
 docker run --name microblog \
        --detach \
@@ -25,4 +35,6 @@ docker run --name microblog \
        --env SECRET_KEY=$SECRET_KEY \
        --link mysql:mysql \
        --env DATABASE_URL=$DATABASE_URL \
+       --link elasticsearch:elasticsearch \
+       --env ELASTICSEARCH_URL=$ELASTICSEARCH_URL \
        microblog:latest

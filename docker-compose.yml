@@ -7,11 +7,20 @@ services:
     links:
     - mysql
     - elasticsearch
+    - redis
     env_file: .env
     environment:
     - SECRET_KEY
     - DATABASE_URL=mysql+pymysql://microblog:${MYSQL_PASSWORD}@mysql/microblog
     - ELASTICSEARCH_URL=http://elasticsearch:9200
+    - REDIS_URL=redis://redis:6379/0
+  rq:
+    build: .
+    entrypoint: ./boot-rq.sh
+    links:
+    - redis
+    environment:
+    - REDIS_URL=redis://redis:6379/0
   mysql:
     image: "mysql/mysql-server:5.7"
     volumes:
@@ -28,5 +37,9 @@ services:
     - "9300:9300"
     environment:
     - discovery.type=single-node
+  redis:
+    image: "redis:3-alpine"
+    ports:
+    - "6379:6379"
 volumes:
   microblog-mysql-volume:

@@ -11,8 +11,8 @@ RUN venv/bin/pip install gunicorn 'pymysql<0.9'
 
 COPY app app
 COPY migrations migrations
-COPY microblog.py config.py boot.sh ./
-RUN chmod a+x boot.sh
+COPY microblog.py config.py boot.sh boot-rq.sh ./
+RUN chmod a+x boot.sh boot-rq.sh
 
 ENV FLASK_APP microblog.py
 

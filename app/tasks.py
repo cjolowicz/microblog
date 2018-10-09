@@ -1,3 +1,4 @@
+import sys
 from rq import get_current_job
 from app import create_app, db
 from app.models import Task
@@ -24,4 +25,5 @@ def export_posts(user_id):
         # read user posts from database
         # send email with data to user
     except:
-        # handle unexpected errors
+        _set_task_progress(100)
+        app.logger.error('Unhandled exception', exc_info=sys.exc_info())

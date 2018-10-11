@@ -180,6 +180,13 @@ class User(UserMixin, db.Model):
             data['email'] = self.email
         return data
 
+    def from_dict(self, data, new_user=False):
+        for field in ['username', 'email', 'about_me']:
+            if field in data:
+                setattr(self, field, data[field])
+        if new_user and 'password' in data:
+            self.set_password(data['password'])
+
 
 @login.user_loader
 def load_user(id):

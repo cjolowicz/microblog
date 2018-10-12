@@ -11,6 +11,7 @@ from app.api.errors import bad_request
 def get_user(id):
     return jsonify(User.query.get_or_404(id).to_dict())
 
+
 @bp.route('/users', methods=['GET'])
 @token_auth.login_required
 def get_users():
@@ -18,6 +19,7 @@ def get_users():
     per_page = min(request.args.get('per_page', 10, type=int), 100)
     data = User.to_collection_dict(User.query, page, per_page, 'api.get_users')
     return jsonify(data)
+
 
 @bp.route('/users/<int:id>/followers', methods=['GET'])
 @token_auth.login_required
@@ -29,6 +31,7 @@ def get_followers(id):
                                    'api.get_followers', id=id)
     return jsonify(data)
 
+
 @bp.route('/users/<int:id>/followed', methods=['GET'])
 @token_auth.login_required
 def get_followed(id):
@@ -38,6 +41,7 @@ def get_followed(id):
     data = User.to_collection_dict(user.followed, page, per_page,
                                    'api.get_followed', id=id)
     return jsonify(data)
+
 
 @bp.route('/users', methods=['POST'])
 def create_user():
@@ -56,6 +60,7 @@ def create_user():
     response.status_code = 201
     response.headers['Location'] = url_for('api.get_user', id=user.id)
     return response
+
 
 @bp.route('/users/<int:id>', methods=['PUT'])
 @token_auth.login_required
